@@ -4,6 +4,8 @@ This is a repository for a small application that can merge multiple PDFs togeth
 
 TODO: ✅
 
-- [ ] Fix file name labels so that each time the "Browse" button is pressed old file labels are erased
+- [x] Fix file name labels so that each time the "Browse" button is pressed old file labels are erased
 - [ ] Figure out a way to freeze the application or notify the user on the progress of the PDF merging process.
 - [ ] Handle case where a file might not be chosen i.e. potentially lock the merge button until at least 2 files are chosen.
+- [ ] Figure out a nice theming for the application.
+- [ ] Package the application to a .exe so that it can be run as a desktop application on devices.
