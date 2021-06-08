@@ -2,10 +2,11 @@ import tkinter as tk
 from tkinter import filedialog
 from tkinter import ttk
 from pdfmerger import PDFMerger
+import time
 
 class Application(tk.Frame): 
     def __init__(self, master=None):
-        tk.Frame.__init__(self, master) 
+        ttk.Frame.__init__(self, master) 
         self.fileNames = []
         self.fileLabels = []
         self.outputFileName = ""
@@ -17,6 +18,7 @@ class Application(tk.Frame):
         top = self.winfo_toplevel()
         top.rowconfigure(0, weight=1)
         top.columnconfigure(0, weight=1)
+
         self.rowconfigure(0, weight=1)
         self.columnconfigure(0, weight=1)
 
@@ -29,14 +31,33 @@ class Application(tk.Frame):
         self.PDFLabelFrame = ttk.Labelframe(self, text="PDFs to Merge")
         self.PDFLabelFrame.grid(row=1, column=0, columnspan=2)
 
+        self.progressMarker = None
+
 
     def openFileExplorer(self):
         self.fileNames = filedialog.askopenfilenames(defaultextension=".pdf", filetypes={("*.pdf", ".pdf")})
         
         self.__clearPDFLabelFrame()
+
+        self.__createChosenPDFLabels(self.fileNames)
         
-        for index in range(len(self.fileNames)):
-            currentFilePath = self.fileNames[index]
+    def mergePDFs(self):
+        self.outputFileName = filedialog.asksaveasfilename(defaultextension=".pdf", filetypes={("*.pdf", ".pdf")})
+
+        self.progressMarker = ttk.Progressbar(self, mode='determinate', maximum=100)
+        self.progressMarker.grid()
+        self.pdfMerger = PDFMerger()
+        self.pdfMerger.mergePDFs(self.fileNames, self.outputFileName, self.progressMarker)
+
+    def __clearPDFLabelFrame(self):
+        PDFLabelFrameChildren = self.PDFLabelFrame.winfo_children()
+
+        for child in PDFLabelFrameChildren:
+            child.destroy()
+    
+    def __createChosenPDFLabels(self, pdfList):
+        for index in range(len(pdfList)):
+            currentFilePath = pdfList[index]
             currentFilePath = currentFilePath.split("/")
 
             lastSplitItemIndex = len(currentFilePath) - 1
@@ -44,16 +65,6 @@ class Application(tk.Frame):
 
             ttk.Label(self.PDFLabelFrame, text=currentFileName).grid(row=index, column=0, columnspan=2)
 
-    def mergePDFs(self):
-        self.outputFileName = filedialog.asksaveasfilename(defaultextension=".pdf", filetypes={("*.pdf", ".pdf")})
-        self.pdfMerger = PDFMerger()
-        self.pdfMerger.mergePDFs(self.fileNames, self.outputFileName)
-
-    def __clearPDFLabelFrame(self):
-        PDFLabelFrameChildren = self.PDFLabelFrame.winfo_children()
-
-        for child in PDFLabelFrameChildren:
-            child.destroy()
 
 app = Application() 
 app.master.title('PDF Merger') 
