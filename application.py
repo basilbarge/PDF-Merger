@@ -18,22 +18,24 @@ class Application(tk.Frame):
         self.rowconfigure(0, weight=1)
         self.columnconfigure(0, weight=1)
 
-        self.filePathEntry = ttk.Entry(self)
-        self.filePathEntry.grid(row=0, column=0)
-
-        self.enterButton = ttk.Button(self, text="Enter")
-        self.enterButton.grid(row=0, column=1)
-
         self.fileDialogButton = ttk.Button(self, text='Browse',command=self.openFileExplorer) 
-        self.fileDialogButton.grid(row=0, column=2, columnspan=2, padx=5, pady=5)
+        self.fileDialogButton.grid(row=0, column=0, padx=5, pady=5)
+
+        self.mergePDFButton = ttk.Button(self, text="Merge")
+        self.mergePDFButton.grid(row=0, column=1, padx=5, pady=5)
 
 
     def openFileExplorer(self):
         self.fileNames = tk.filedialog.askopenfilenames(defaultextension=".pdf", 
                                                         filetypes={("*.pdf", ".pdf")})
         for index in range(len(self.fileNames)):
-            currentFileName = self.fileNames[index]
-            self.fileLabels.append(ttk.Label(self, text=currentFileName).grid(row=index + 1, column=0))
+            currentFilePath = self.fileNames[index]
+            currentFilePath = currentFilePath.split("/")
+
+            lastSplitItemIndex = len(currentFilePath) - 1
+            currentFileName = currentFilePath[lastSplitItemIndex]
+
+            self.fileLabels.append(ttk.Label(self, text=currentFileName).grid(row=index + 1, column=0, columnspan=2))
 
 
 app = Application() 
