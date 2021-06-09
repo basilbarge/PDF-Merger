@@ -2,7 +2,6 @@ import tkinter as tk
 from tkinter import filedialog
 from tkinter import ttk
 from pdfmerger import PDFMerger
-import time
 
 class Application(tk.Frame): 
     def __init__(self, master=None):
@@ -11,6 +10,8 @@ class Application(tk.Frame):
         self.fileLabels = []
         self.outputFileName = ""
         self.pdfMerger = None
+        self.progressLabel = None
+        self.progressMarker = None
         self.grid()
         self.createWidgets()
 
@@ -31,9 +32,6 @@ class Application(tk.Frame):
         self.PDFLabelFrame = ttk.Labelframe(self, text="PDFs to Merge")
         self.PDFLabelFrame.grid(row=1, column=0, columnspan=2)
 
-        self.progressMarker = None
-
-
     def openFileExplorer(self):
         self.fileNames = filedialog.askopenfilenames(defaultextension=".pdf", filetypes={("*.pdf", ".pdf")})
         
@@ -44,10 +42,17 @@ class Application(tk.Frame):
     def mergePDFs(self):
         self.outputFileName = filedialog.asksaveasfilename(defaultextension=".pdf", filetypes={("*.pdf", ".pdf")})
 
-        self.progressMarker = ttk.Progressbar(self, mode='determinate', maximum=100)
-        self.progressMarker.grid()
+        progressWindow = tk.Toplevel(self)
+        progressWindow.wm_title("Merging PDFs...")
+
+        self.progressMarker = ttk.Progressbar(progressWindow, mode='determinate', maximum=100)
+        self.progressMarker.grid(row=1, column=0)
+
+        self.progressLabel = ttk.Label(progressWindow, text="Merging PDFs...: 0 %")
+        self.progressLabel.grid(row=0, column=0)
+
         self.pdfMerger = PDFMerger()
-        self.pdfMerger.mergePDFs(self.fileNames, self.outputFileName, self.progressMarker)
+        self.pdfMerger.mergePDFs(self.fileNames, self.outputFileName, self.incrementProgressBarBy, self.incrementProgressLabelBy)
 
     def __clearPDFLabelFrame(self):
         PDFLabelFrameChildren = self.PDFLabelFrame.winfo_children()
@@ -65,6 +70,23 @@ class Application(tk.Frame):
 
             ttk.Label(self.PDFLabelFrame, text=currentFileName).grid(row=index, column=0, columnspan=2)
 
+    def incrementProgressBarBy(self, incrementBy):
+        self.progressMarker['value'] += incrementBy
+
+    def incrementProgressLabelBy(self, progressIncrement):
+        currentText = self.progressLabel.cget("text")
+
+        currentTextAsList = currentText.split(' ')
+
+        currentProgressPercentage = float(currentTextAsList[len(currentTextAsList) - 2])
+        currentProgressPercentage += progressIncrement
+
+        currentTextAsList[len(currentTextAsList) - 2] = str(currentProgressPercentage)
+
+        separator = " " 
+        newText = separator.join(currentTextAsList)
+
+        self.progressLabel.configure(text=newText)
 
 app = Application() 
 app.master.title('PDF Merger') 
