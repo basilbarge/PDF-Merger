@@ -1,3 +1,4 @@
+from ProgressWindow import ProgressWindow
 from tkinter.ttk import Frame
 from ControlsBar import ControlsBar
 from PDFLabels import PDFLabels

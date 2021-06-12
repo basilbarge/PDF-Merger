@@ -2,7 +2,7 @@ from PyPDF2 import PdfFileMerger
 class PDFMerger():
 
     def __init__(self):
-        self.pdfMerger = PdfFileMerger()
+        self.pdfMerger = PdfFileMerger(strict=False)
 
     def mergePDFs(self, listOfPDFsToMerge, outputFile, incrementProgressBarBy, incrementProgressLabelBy):
         for pdf in listOfPDFsToMerge:
