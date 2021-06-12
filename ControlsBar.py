@@ -1,6 +1,7 @@
 
 import tkinter as tk
 import tkinter.ttk as ttk
+import tkinter.filedialog
 
 from pdfmerger import PDFMerger
 
@@ -25,7 +26,7 @@ class ControlsBar(ttk.Frame):
         self.parent.PDFLabels.createChosenPDFLabels(self.parent.PDFLabels.fileNames)
         
     def mergePDFs(self):
-        self.outputFileName = tk.filedialog.asksaveasfilename(defaultextension=".pdf", filetypes={("*.pdf", ".pdf")})
+        self.outputFileName = tkinter.filedialog.asksaveasfilename(defaultextension=".pdf", filetypes={("*.pdf", ".pdf")})
 
         progressWindow = tk.Toplevel(self)
         progressWindow.wm_title("Merging PDFs...")

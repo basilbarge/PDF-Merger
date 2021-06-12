@@ -1,13 +1,4 @@
-from tkinter import Toplevel
-from tkinter import filedialog
-
 from tkinter.ttk import Frame
-from tkinter.ttk import Progressbar
-from tkinter.ttk import Labelframe
-from tkinter.ttk import Label
-from tkinter.ttk import Button
-
-from pdfmerger import PDFMerger
 from ControlsBar import ControlsBar
 from PDFLabels import PDFLabels
 
