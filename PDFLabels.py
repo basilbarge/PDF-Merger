@@ -8,6 +8,8 @@ class PDFLabels(ttk.Frame):
 
         self.fileNames = []
 
+        self.parent = parent
+
         self.PDFLabelFrame = ttk.Labelframe(self, text="PDFs to Merge")
         self.PDFLabelFrame.grid(row=1, column=0, columnspan=2)
 
@@ -20,3 +22,11 @@ class PDFLabels(ttk.Frame):
             currentFileName = currentFilePath[lastSplitItemIndex]
 
             ttk.Label(self.PDFLabelFrame, text=currentFileName).grid(row=index, column=0, columnspan=2)
+    
+    def clearPDFLabelFrame(self):
+        self.fileNames.clear()
+        PDFLabelFrameChildren = self.PDFLabelFrame.winfo_children()
+
+        for child in PDFLabelFrameChildren:
+            child.destroy()
+

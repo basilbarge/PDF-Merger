@@ -19,6 +19,15 @@ class ControlsBar(ttk.Frame):
         self.mergePDFButton = ttk.Button(self, text="Merge", command=self.mergePDFs)
         self.mergePDFButton.grid(row=0, column=1, padx=5, pady=5)
 
+        self.clearPDFButton = ttk.Button(self, text="Clear all", command=self.clearPDFs)
+        self.clearPDFButton.grid(row=0, column=2, padx=5, pady=5)
+
+    def clearPDFs(self):
+        self.parent.PDFLabels.clearPDFLabelFrame()
+        print(self.parent.PDFLabels.fileNames)
+        print(self.parent.PDFLabels.PDFLabelFrame.children)
+
+
     def openFileExplorer(self):
         self.parent.PDFLabels.fileNames.extend(tk.filedialog.askopenfilenames(defaultextension=".pdf", filetypes={("*.pdf", ".pdf")}))
         

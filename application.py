@@ -25,11 +25,11 @@ class Application(Frame):
         self.columnconfigure(0, weight=1)        
 
 
-    def __clearPDFLabelFrame(self):
-        PDFLabelFrameChildren = self.PDFLabelFrame.winfo_children()
+    # def __clearPDFLabelFrame(self):
+    #     PDFLabelFrameChildren = self.PDFLabelFrame.winfo_children()
 
-        for child in PDFLabelFrameChildren:
-            child.destroy()
+    #     for child in PDFLabelFrameChildren:
+    #         child.destroy()
     
     # def __createChosenPDFLabels(self, pdfList):
     #     for index in range(len(pdfList)):

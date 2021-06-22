@@ -28,10 +28,12 @@ class ProgressWindow(ttk.Frame):
 
         currentTextAsList = currentText.split(' ')
 
-        currentProgressPercentage = float(currentTextAsList[len(currentTextAsList) - 2])
+        indexOfPercentage = len(currentTextAsList) - 2
+
+        currentProgressPercentage = float(currentTextAsList[indexOfPercentage])
         currentProgressPercentage += progressIncrement
 
-        currentTextAsList[len(currentTextAsList) - 2] = str(currentProgressPercentage)
+        currentTextAsList[indexOfPercentage] = str(currentProgressPercentage)
 
         separator = " " 
         newText = separator.join(currentTextAsList)
