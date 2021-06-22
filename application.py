@@ -24,25 +24,6 @@ class Application(Frame):
         self.rowconfigure(0, weight=1)
         self.columnconfigure(0, weight=1)        
 
-
-    # def __clearPDFLabelFrame(self):
-    #     PDFLabelFrameChildren = self.PDFLabelFrame.winfo_children()
-
-    #     for child in PDFLabelFrameChildren:
-    #         child.destroy()
-    
-    # def __createChosenPDFLabels(self, pdfList):
-    #     for index in range(len(pdfList)):
-    #         currentFilePath = pdfList[index]
-    #         currentFilePath = currentFilePath.split("/")
-
-    #         lastSplitItemIndex = len(currentFilePath) - 1
-    #         currentFileName = currentFilePath[lastSplitItemIndex]
-
-    #         Label(self.PDFLabelFrame, text=currentFileName).grid(row=index, column=0, columnspan=2)
-
-
-
 app = Application() 
 app.master.title('PDF Merger') 
 app.mainloop()
