@@ -28,12 +28,10 @@ class ControlsBar(ttk.Frame):
         print(self.parent.PDFLabels.PDFLabelFrame.children)
 
 
+    # TODO: Change function name so that it's more descriptive
     def openFileExplorer(self):
         self.parent.PDFLabels.fileNames.extend(tk.filedialog.askopenfilenames(defaultextension=".pdf", filetypes={("*.pdf", ".pdf")}))
-        
-        # self.__clearPDFLabelFrame()
-
-        self.parent.PDFLabels.createChosenPDFLabels(self.parent.PDFLabels.fileNames)
+        self.parent.PDFLabels.createChosenPDFLabels()
         
     def mergePDFs(self):
         self.outputFileName = tkinter.filedialog.asksaveasfilename(defaultextension=".pdf", filetypes={("*.pdf", ".pdf")})

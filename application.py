@@ -1,7 +1,10 @@
+from tkinter import ttk
 from ProgressWindow import ProgressWindow
 from tkinter.ttk import Frame
 from ControlsBar import ControlsBar
 from PDFLabels import PDFLabels
+import tkinter as tk
+import os
 
 class Application(Frame):
     def __init__(self, master=None):
@@ -22,7 +25,8 @@ class Application(Frame):
         top.columnconfigure(0, weight=1)
 
         self.rowconfigure(0, weight=1)
-        self.columnconfigure(0, weight=1)        
+        self.columnconfigure(0, weight=1) 
+
 
 app = Application() 
 app.master.title('PDF Merger') 
