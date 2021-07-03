@@ -26,11 +26,12 @@ class PDFLabels(ttk.Frame):
             self.PDFLabels.append(PDFLabel(self.PDFLabelFrame, currentFileName, index))
     
     def clearPDFLabelFrame(self):
-        self.fileNames.clear()
-        PDFLabelFrameChildren = self.PDFLabelFrame.winfo_children()
+        if(len(self.fileNames) > 0):
+            self.fileNames.clear()
+            PDFLabelFrameChildren = self.PDFLabelFrame.winfo_children()
 
-        for child in PDFLabelFrameChildren:
-            child.destroy()
+            for child in PDFLabelFrameChildren:
+                child.destroy()
 
     def updateLabelFrame(self, labelToRemove):
         self.fileNames.pop(labelToRemove.row)

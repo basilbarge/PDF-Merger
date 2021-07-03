@@ -13,23 +13,22 @@ class ControlsBar(ttk.Frame):
         self.grid()
         self.parent = parent
 
-        self.fileDialogButton = ttk.Button(self, text='Browse',command=self.openFileExplorer) 
+        self.fileDialogButton = ttk.Button(self, text='Browse',command=self.browseForPDFsToMerge) 
         self.fileDialogButton.grid(row=0, column=0, padx=5, pady=5)
 
         self.mergePDFButton = ttk.Button(self, text="Merge", command=self.mergePDFs)
         self.mergePDFButton.grid(row=0, column=1, padx=5, pady=5)
 
+
         self.clearPDFButton = ttk.Button(self, text="Clear all", command=self.clearPDFs)
         self.clearPDFButton.grid(row=0, column=2, padx=5, pady=5)
 
+        self.updateClearButtonState
+
     def clearPDFs(self):
         self.parent.PDFLabels.clearPDFLabelFrame()
-        print(self.parent.PDFLabels.fileNames)
-        print(self.parent.PDFLabels.PDFLabelFrame.children)
 
-
-    # TODO: Change function name so that it's more descriptive
-    def openFileExplorer(self):
+    def browseForPDFsToMerge(self):
         self.parent.PDFLabels.fileNames.extend(tk.filedialog.askopenfilenames(defaultextension=".pdf", filetypes={("*.pdf", ".pdf")}))
         self.parent.PDFLabels.createChosenPDFLabels()
         
@@ -42,3 +41,6 @@ class ControlsBar(ttk.Frame):
         self.pdfMerger.mergePDFs(self.parent.PDFLabels.fileNames, self.outputFileName, progressWindow.incrementProgressBarBy, progressWindow.incrementProgressLabelBy)
 
         progressWindow.destroy()
+
+    def updateClearButtonState(self):
+        self.clearPDFButton.state =  tk.NORMAL if len(self.parent.PDFLabels.fileNames > 0) else tk.DISABLED 
