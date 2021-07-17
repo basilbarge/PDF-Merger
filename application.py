@@ -14,8 +14,8 @@ class Application(Frame):
         self.pdfMerger = None
         self.progressLabel = None
         self.progressMarker = None
-        self.buttonControls = ControlsBar(self)
-        self.PDFLabels = PDFLabels(self)
+        self.buttonControls = ControlsBar(self, row=1, column=0)
+        self.PDFLabels = PDFLabels(self, row=0, column=0)
         self.grid()
         self.createWidgets()
 

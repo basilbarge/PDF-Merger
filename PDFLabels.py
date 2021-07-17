@@ -3,17 +3,21 @@ from PDFLabel import PDFLabel
 
 class PDFLabels(ttk.Frame):
 
-    def __init__(self, parent, master=None):
+    def __init__(self, parent, row=0, column=0, master=None):
         super().__init__(master)
-        self.grid()
+        self.grid(row=row, column=column)
 
         self.fileNames = []
         self.PDFLabels = []
 
         self.parent = parent
 
-        self.PDFLabelFrame = ttk.Labelframe(self, text="PDFs to Merge")
-        self.PDFLabelFrame.grid(row=1, column=0, columnspan=2)
+        self.PDFLabelFrame = ttk.Labelframe(self, labelanchor="n", text="PDFs to Merge")
+        self.PDFLabelFrame.grid(row=1, column=0)
+
+        self.scrollBar = ttk.Scrollbar(self.PDFLabelFrame)
+        self.scrollBar.grid(row=0, column=3)
+
 
     def createChosenPDFLabels(self):
         for index in range(len(self.fileNames)):

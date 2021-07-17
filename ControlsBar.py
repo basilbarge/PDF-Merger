@@ -8,9 +8,9 @@ from ProgressWindow import ProgressWindow
 
 class ControlsBar(ttk.Frame):
 
-    def __init__(self, parent, master=None):
+    def __init__(self, parent, row=0, column=0, master=None):
         super().__init__(master)
-        self.grid()
+        self.grid(row=row, column=column)
         self.parent = parent
 
         self.fileDialogButton = ttk.Button(self, text='Browse',command=self.browseForPDFsToMerge) 
